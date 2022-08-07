@@ -39,6 +39,7 @@ User.init(
       },
     },
     sequelize,
+    // might need to change to TRUE
     timestamps: false,
     freezeTableName: true,
     underscored: true,
