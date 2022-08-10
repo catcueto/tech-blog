@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { User, Post, Comment } = require("../models");
 // route for login
-const withAuth = require("../utils/auth");
+// const withAuth = require("../utils/auth");
 
 router.get("/", async (req, res) => {
   try {
@@ -29,6 +29,7 @@ router.get("/", async (req, res) => {
     // Pass serialized data and session flag into template
     res.render("homepage", {
       posts,
+      comments,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
