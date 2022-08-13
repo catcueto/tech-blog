@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { Post } = require("../../models");
 const withAuth = require("../../utils/auth");
 
-// Route to create a new post
+// CREATING a new post
 router.post("/", withAuth, async (req, res) => {
   try {
     const newPost = await Post.create({
@@ -10,13 +10,37 @@ router.post("/", withAuth, async (req, res) => {
       user_id: req.session.user_id,
     });
 
+    //   const newPost = await Post.create({
+    //     postTitle: req.body.postTitle,
+    //     post: req.body.post,
+    //     user_id: req.session.user_id,
+    // });
+
     res.status(200).json(newPost);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-// Route to delete post by id
+// UPDATING a post
+router.put("/:id", withAuth, async (req, res) => {
+  try {
+    const updatedPost = {
+      post_title: req.body.title,
+      post_content: req.body.post_content,
+    };
+    const updated = await Post.update(updatedPost, {
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.status(200).json({ msg: updated });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// DELETING a post by id
 router.delete("/:id", withAuth, async (req, res) => {
   try {
     // destroy post where id
@@ -33,26 +57,6 @@ router.delete("/:id", withAuth, async (req, res) => {
     }
 
     res.status(200).json(deletePost);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-// Route to update a post
-router.put("/:id", withAuth, async (req, res) => {
-  try {
-    // updated post grabs from req.body
-    const updatedPost = {
-      post_title: req.body.title,
-      post_content: req.body.post_content,
-    };
-    // updates in db
-    const updated = await Post.update(updatedPost, {
-      where: {
-        id: req.params.id,
-      },
-    });
-    res.status(200).json({ msg: updated });
   } catch (err) {
     res.status(500).json(err);
   }
