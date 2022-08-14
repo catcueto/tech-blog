@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -19,17 +18,37 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<nav>
-  <div class="nav-wrapper">
-    <a href="/home" class="brand-logo left">The Tech Blog</a>
-    <ul class="right hide-on-med-and-down">
-      <li><a href="/home"><i class="material-icons">home</i></a></li>
-      <li><a href="/dashboard"><i class="material-icons">dashboard</i></a></li>
-      <li><a href="/login"><i class="material-icons">account_box</i></a></li>
-      <li><a href="/logout"><i class="material-icons">exit_to_app</i></a></li>
-    </ul>
-  </div>
-</nav>
+<body>
+  <header>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="/" class="brand-logo left">The Tech Blog</a>
+        <ul class="right hide-on-med-and-down">
+          <li class="home icon"><a href="/"><i class="material-icons">home</i></a></li>
+          <li class="dashboard icon"><a href="/dashboard"><i class="material-icons">dashboard</i></a></li>
+          {{#if (not loggedIn)}}
+          <li class="login icon"><a href="/login"><i class="material-icons">account_box</i></a></li>
+          {{else}}
+          <li class="logout icon"><a href="/login"><i class="material-icons">exit_to_app</i></a></li>
 
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container container-fluid mt-5">
+    <!-- Render the contents of the sub layout here -->
+    {{{body}}}
+  </main>
+
+  <footer>
+
+  </footer>
+
+  {{#if loggedIn}}
+  <script src="/js/logout.js"></script>
+  {{/if}}
 
 </body>
+
+</html>

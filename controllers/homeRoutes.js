@@ -78,33 +78,33 @@ router.get("/dashboard", withAuth, async (req, res) => {
       },
     ],
   });
-});
 
-const user = await userPosts.map((post) => {
-  return post.get({ plain: true });
-});
-console.log(user);
-res.render("dashboard", {
-  user,
-  loggedIn: true,
-});
+  const user = userPosts.map((post) => {
+    return post.get({ plain: true });
+  });
+  console.log(user);
+  res.render("dashboard", {
+    user,
+    loggedIn: true,
+  });
 
-// Get request to UPDATE a COMMENT
-router.get("/comment/update/:id", async (req, res) => {
-  const commentData = await Comment.findByPk(req.params.id);
-  const comment = await commentData.get({ plain: true });
-  const session = req.session;
+  // Get request to UPDATE a COMMENT
+  router.get("/comment/update/:id", async (req, res) => {
+    const commentData = await Comment.findByPk(req.params.id);
+    const comment = await commentData.get({ plain: true });
+    const session = req.session;
 
-  res.render("commentUpdate", { comment, session });
-});
+    res.render("commentUpdate", { comment, session });
+  });
 
-// Get request for LOGIN
-router.get("/login", (req, res) => {
-  if (req.session.loggedIn) {
-    res.redirect("/dashboard");
-    return;
-  }
-  res.render("login");
+  // Get request for LOGIN
+  router.get("/login", (req, res) => {
+    if (req.session.loggedIn) {
+      res.redirect("/dashboard");
+      return;
+    }
+    res.render("login");
+  });
 });
 
 module.exports = router;
