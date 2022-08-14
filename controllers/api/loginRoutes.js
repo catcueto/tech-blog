@@ -1,51 +1,52 @@
 const router = require("express").Router();
 const { User } = require("../../models");
+const bcrypt = require("bcrypt");
 
-// Signing in
+// SIGN UP, creating new user
 router.post("/", async (req, res) => {
   try {
-    const userData = await User.create({
+    const newUser = await User.create({
       username: req.body.username,
       password: req.body.password,
     });
 
     req.session.save(() => {
-      req.session.user_id = userData.id;
+      req.session.user_id = newUser.id;
       req.session.logged_in = true;
 
-      res.status(202).json(userData);
+      res.status(202).json(newUser);
     });
   } catch (err) {
     res.status(400).json(err);
   }
 });
 
-// Route for logging in
+// Route for LOGIN
 router.post("/login", async (req, res) => {
   try {
-    const userData = await User.findOne({
+    const loginUser = await User.findOne({
       where: { username: req.body.username },
     });
 
-    if (!userData) {
+    if (!loginUser) {
       res
         .status(400)
         .json({ message: "Incorrect username or password, please try again" });
       return;
     }
 
-    const validPassword = await userData.checkPassword(req.body.password);
-    if (!validPassword) {
+    const compare = await bcrypt.compare(req.body.password, loginUser.password);
+    if (!compare) {
       res
         .status(400)
         .json({ message: "Incorrect username or password, please try again" });
       return;
     }
     req.session.save(() => {
-      req.session.user_id = userData.id;
+      req.session.user_id = loginUser.id;
       req.session.logged_in = true;
 
-      res.json({ user: userData, message: "You are now logged in!" });
+      res.json({ user: loginUser, message: "You are now logged in!" });
     });
   } catch (err) {
     console.log(err);
@@ -53,14 +54,19 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// Route to log out
+// Route to LOG OUT
 router.post("/logout", (req, res) => {
-  if (req.session.loggedIn) {
-    req.session.destroy(() => {
-      res.status(204).end();
-    });
-  } else {
-    res.status(404).end();
+  try {
+    if (req.session.loggedIn) {
+      req.session.destroy(() => {
+        res.status(204).end();
+      });
+    } else {
+      // status failed
+      res.status(404).end();
+    }
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 

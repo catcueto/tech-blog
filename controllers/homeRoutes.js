@@ -96,15 +96,15 @@ router.get("/dashboard", withAuth, async (req, res) => {
 
     res.render("commentUpdate", { comment, session });
   });
+});
 
-  // Get request for LOGIN
-  router.get("/login", (req, res) => {
-    if (req.session.loggedIn) {
-      res.redirect("/dashboard");
-      return;
-    }
-    res.render("login");
-  });
+// Get request for LOGIN
+router.get("/login", (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect("/");
+    return;
+  }
+  res.render("login");
 });
 
 module.exports = router;
