@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const { Session } = require("express-session");
 const { User, Post, Comment } = require("../models");
-// route for login
 const withAuth = require("../utils/auth");
 
 // Getting ALL POSTS
@@ -12,7 +11,7 @@ router.get("/", async (req, res) => {
       include: [
         {
           model: User,
-          attributes: ["username"],
+          attributes: ["username", "id"],
         },
         {
           model: Comment,
@@ -44,7 +43,7 @@ router.get("/post/:id", async (req, res) => {
   const session = req.session;
   // render user res
   console.log(session);
-  res.render("postPage", { post, session });
+  res.render("allPosts", { post, session });
 });
 
 // Getting SINGLE post + UPDATE option

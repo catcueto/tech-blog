@@ -1,1 +1,20 @@
 /* GENERAL STYLING */
+body {
+  background-color: #fff;
+  font-family: "Lexend Zetta", "Sacramento", sans-serif;
+}
+
+/* NAV BAR */
+.nav-wrapper {
+  background-color: #011627;
+}
+
+.left {
+  margin-left: 20px;
+}
+
+/* LOGIN PAGE */
+
+/* DASHBOARD */
+
+/* HOMEPAGE */

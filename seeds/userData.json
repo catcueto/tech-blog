@@ -1,14 +1,22 @@
 [
   {
     "username": "catcueto",
-    "password": "hashyhash"
+    "password": "pw1234"
   },
   {
     "username": "amybaby",
-    "password": "hashyhash"
+    "password": "pw2345"
   },
   {
     "username": "kellygu",
-    "password": "hashyhash"
+    "password": "pw3456"
+  },
+  {
+    "username": "kennyg",
+    "password": "pw4567"
+  },
+  {
+    "username": "celinf",
+    "password": "pw5678"
   }
 ]
