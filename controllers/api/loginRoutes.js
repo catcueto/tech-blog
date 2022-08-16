@@ -3,7 +3,7 @@ const { User } = require("../../models");
 const bcrypt = require("bcrypt");
 
 // SIGN UP, creating new user
-router.post("/", async (req, res) => {
+router.post("/signup", async (req, res) => {
   try {
     const newUser = await User.create({
       username: req.body.username,

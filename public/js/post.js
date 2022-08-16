@@ -1,10 +1,9 @@
-const postForm = async (event) => {
-  event.preventDefault();
+// FUNCTION TO CREATE POST
+const postForm = async (e) => {
+  e.preventDefault();
 
-  const postTitle = document.querySelector("#postTitle").value.trim();
-  const post = document.querySelector("#postContent").value.trim();
-
-  alert(postTitle + post);
+  const postTitle = document.querySelector("#post_title").value.trim();
+  const post = document.querySelector("#post_content").value.trim();
 
   if (postTitle && post) {
     const response = await fetch("/api/post", {
@@ -23,15 +22,16 @@ const postForm = async (event) => {
   }
 };
 
-const editPost = async (event) => {
-  event.preventDefault();
+// FUNCTION TO UPDATE POST
+const updatePost = async (e) => {
+  e.preventDefault();
 
-  const postId = event.target.getAttribute("user_id");
-  const postTitle = document.getElementById("postTitle").value;
-  const postContent = document.getElementById("post").value;
+  const postID = updatePost.target.getAttribute("user_id");
+  const postTitle = document.getElementById("post_title").value;
+  const postContent = document.getElementById("post_content").value;
 
   if (postTitle && postContent) {
-    const response = await fetch(`/api/post/${postId}`, {
+    const response = await fetch(`/api/post/${postID}`, {
       method: "PUT",
       body: JSON.stringify({ postTitle, postContent }),
       headers: {
@@ -40,16 +40,17 @@ const editPost = async (event) => {
     });
 
     if (response.ok) {
-      document.location.replace("/");
+      document.location.replace("/dashboard");
     } else {
-      alert("Unable to update post at this time.");
+      alert("Failed to update post.");
     }
   }
 };
 
-const deletePostForm = async (event) => {
-  if (event.target.hasAttribute("dataId")) {
-    const id = event.target.getAttribute("dataId");
+// FUNCTION TO DELETE POST
+const deletePostForm = async (e) => {
+  if (e.target.hasAttribute("dataID")) {
+    const id = evenet.target.getAttribute("dataID");
 
     const response = await fetch(`/api/post/${id}`, {
       method: "DELETE",
@@ -63,4 +64,4 @@ const deletePostForm = async (event) => {
   }
 };
 
-document.querySelector(".newPostForm").addEventListener("submit", newPostForm);
+document.querySelector(".newPostForm").addEventListener("submit", postForm);
