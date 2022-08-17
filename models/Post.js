@@ -14,10 +14,12 @@ Post.init(
     post_title: {
       type: DataTypes.STRING,
       allowNull: false,
+      defaultValue: "",
     },
     post_content: {
       type: DataTypes.STRING,
       allowNull: false,
+      defaultValue: "",
     },
     post_date: {
       type: DataTypes.DATE,

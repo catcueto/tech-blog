@@ -78,12 +78,12 @@ router.get("/dashboard", withAuth, async (req, res) => {
     ],
   });
 
-  const user = userPosts.map((post) => {
+  const posts = userPosts.map((post) => {
     return post.get({ plain: true });
   });
-  console.log(user);
+  console.log(posts);
   res.render("dashboard", {
-    user,
+    posts,
     loggedIn: true,
   });
 
@@ -104,6 +104,15 @@ router.get("/login", (req, res) => {
     return;
   }
   res.render("login");
+});
+
+// ADD SIGNUP - get route
+router.get("/signup", (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect("/");
+    return;
+  }
+  res.render("signup");
 });
 
 module.exports = router;

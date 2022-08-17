@@ -1,6 +1,4 @@
 // TODO: Login
-const usernameLogin = document.getElementById("username-login");
-const pwLogin = document.getElementById("password-login");
 const loginEl = document.getElementById("login-btn");
 
 const loginFormHandler = async (event) => {
@@ -15,8 +13,8 @@ const loginFormHandler = async (event) => {
     const response = await fetch("/api/users/login", {
       method: "POST",
       body: JSON.stringify({
-        username: usernameLogin.value,
-        password: pwLogin.value,
+        username,
+        password,
       }),
       headers: { "Content-Type": "application/json" },
     });
